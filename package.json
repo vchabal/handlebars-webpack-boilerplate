@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "A Webpack with Handlebars setup",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "node scripts/build/build.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vchabal/handlebars-webpack-boilerplate.git"
@@ -20,6 +22,7 @@
   },
   "homepage": "https://github.com/vchabal/handlebars-webpack-boilerplate#readme",
   "devDependencies": {
+    "fs-extra": "^5.0.0",
     "webpack": "^3.10.0"
   }
 }
