@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/vchabal/handlebars-webpack-boilerplate/issues"
   },
-  "homepage": "https://github.com/vchabal/handlebars-webpack-boilerplate#readme"
+  "homepage": "https://github.com/vchabal/handlebars-webpack-boilerplate#readme",
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  }
 }
