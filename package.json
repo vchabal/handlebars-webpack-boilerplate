@@ -1,0 +1,22 @@
+{
+  "name": "handlebars-webpack-boilerplate",
+  "version": "0.0.1",
+  "description": "A Webpack with Handlebars setup",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vchabal/handlebars-webpack-boilerplate.git"
+  },
+  "keywords": [
+    "webpack",
+    "handlebars",
+    "boilerplate"
+  ],
+  "author": "Vladimir Chabal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vchabal/handlebars-webpack-boilerplate/issues"
+  },
+  "homepage": "https://github.com/vchabal/handlebars-webpack-boilerplate#readme"
+}
