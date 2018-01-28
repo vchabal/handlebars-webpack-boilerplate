@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const htmlMinifyConfig = require('../config/html.minify.config.js');
 
 const DIR_PROJECT = '../../';
 const DIR_BUILD = 'dist/';
@@ -31,6 +32,7 @@ let pagesPlugins = pages.map(fileName => {
         template: tpl,
         inject: false,
         xhtml: true,
+        minify: htmlMinifyConfig,
         // custom data for template
         data: require(dataPath)
     })
