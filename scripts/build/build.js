@@ -3,72 +3,24 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const htmlMinifyConfig = require('../config/html.minify.config.js');
-
-const DIR_PROJECT = '../../';
-const DIR_BUILD = 'dist/';
-const DIR_SRC = 'src/';
-const DIR_PAGES = DIR_SRC + 'pages';
-const DIR_LOADRES = 'scripts/loaders';
-const REGEX_HBS = /\.hbs$/;
-
-const REMOVE_JS_BUNDLE = true;
-
-// Read all files in src/pages folder
-// Pick only *.hbs files
-let pages = fs.readdirSync(DIR_PAGES).filter(fileName => REGEX_HBS.test(fileName));
-
-// Create custom webpack-plugin for every available page to render it as *.html
-let pagesPlugins = pages.map(fileName => {
-    const html = fileName.replace(REGEX_HBS, '.html'); // index.hbs -> index.html
-    const js = fileName.replace(REGEX_HBS, '.js'); // index.hbs -> index.js
-    const tpl = path.resolve(__dirname, DIR_PROJECT, DIR_PAGES, fileName); // src/pages/index.hbs
-
-    const dataPath = path.relative(path.resolve('./'), path.resolve(DIR_PROJECT, DIR_PAGES, js));
-
-    return new HtmlWebpackPlugin({
-        filename: html,
-        template: tpl,
-        inject: false,
-        xhtml: true,
-        minify: htmlMinifyConfig,
-        // custom data for template
-        data: require(dataPath)
-    })
-})
-
-// Prepend path to expressions in template
-// {{title}} -> {{htmlWebpackPlugin.options.data.title}}
-const query = {
-    search: /\{\{([\w,\.]*)\}\}/,
-    replace: '{{htmlWebpackPlugin.options.data.$1}}',
-    flags: 'g'
-};
+const webpackConfig = require('../config/webpack.config');
+const pathsConfig = require('../config/paths.config');
+const DIR_ROOT = path.resolve(__dirname, "../../");
 
 let compiler = webpack({
-
     // The base directory for resolving entry points and loaders from configuration.
     // This makes configuration independent from CWD.
-    context: path.resolve(__dirname, DIR_PROJECT),
+    context: DIR_ROOT,
 
-    entry: {
-        'bundle.js': path.resolve(__dirname, DIR_PROJECT, DIR_SRC, 'index.js')
-    },
+    entry: webpackConfig.entry,
 
-    output: {
-        filename: '[name]',
-        path: path.resolve(__dirname, DIR_PROJECT, DIR_BUILD)
-    },
+    output: webpackConfig.output,
 
     module: {
-        loaders: [
-            {test: REGEX_HBS, loader: 'handlebars-loader'}, // second, compile handlebars template
-            {test: REGEX_HBS, loader: 'string-replace-loader', query: query} // first, add path to expressions
-        ]
+        loaders: [].concat(webpackConfig.pages.loaders),
     },
 
-    plugins: [/* Add custom Plugins here*/].concat(pagesPlugins)
+    plugins: [].concat(webpackConfig.pages.plugins)
 });
 
 compiler.run((err, stats) => {
@@ -76,15 +28,19 @@ compiler.run((err, stats) => {
         throw err;
     }
 
-    console.log(stats.toString());
-
     if (stats.hasErrors()) {
         console.log('  Build finished with errors!\n');
+        console.log(stats.toString());
         process.exit(1);
     }
 
-    if (REMOVE_JS_BUNDLE) {
-        fs.unlinkSync(path.resolve(__dirname, DIR_PROJECT, DIR_BUILD, 'bundle.js'));
+    if (process.env.REMOVE && process.env.REMOVE.length > 0) {
+        const remove = process.env.REMOVE.split(',');
+        console.log(`  REMOVE=${process.env.REMOVE}, removing files in ${pathsConfig.dist} directory: ${remove.join(', ')}`);
+
+        fs.readdirSync(path.join(DIR_ROOT, pathsConfig.dist))
+            .filter(fileName => remove.indexOf(fileName) >= 0)
+            .forEach(fileName => fs.unlinkSync(path.resolve(DIR_ROOT, pathsConfig.dist, fileName)));
     }
 
     console.log('  Build finished successfully!');
