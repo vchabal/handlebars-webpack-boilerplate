@@ -36,7 +36,7 @@ compiler.run((err, stats) => {
 
     if (process.env.REMOVE && process.env.REMOVE.length > 0) {
         const remove = process.env.REMOVE.split(',');
-        console.log(`  REMOVE=${process.env.REMOVE}, removing files in ${pathsConfig.dist} directory: ${remove.join(', ')}`);
+        console.log(`  Removing files in ${pathsConfig.dist} directory: ${remove.join(', ')}`);
 
         fs.readdirSync(path.join(DIR_ROOT, pathsConfig.dist))
             .filter(fileName => remove.indexOf(fileName) >= 0)
