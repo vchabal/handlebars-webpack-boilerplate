@@ -9,7 +9,10 @@ const DIR_PAGES = path.join(__dirname, DIR_PROJECT, paths.pages);
 const DIR_HELPERS = [
     path.join(__dirname, "../helpers"),
     path.join(__dirname, DIR_PROJECT, paths.helpers)
-]
+];
+const DIR_PARTIALS = [
+    path.join(__dirname, DIR_PROJECT, paths.partials)
+];
 
 // Read all files in src/pages folder
 // Pick only *.hbs files
@@ -40,7 +43,8 @@ module.exports = {
             test: /\.hbs$/, 
             loader: 'handlebars-loader', 
             options: {
-                helperDirs: DIR_HELPERS
+                helperDirs: DIR_HELPERS,
+                partialDirs: DIR_PARTIALS
             } 
         }, 
         // Move data to be accessible
