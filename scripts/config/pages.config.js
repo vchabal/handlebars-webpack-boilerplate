@@ -4,8 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const paths = require('./paths.config');
 const htmlMinify = require('./html.minify.config');
 const DIR_PROJECT = "../../";
-const DIR_PAGES = path.join(__dirname, DIR_PROJECT, paths.pages);
 const REGEX_HBS = /\.hbs$/;
+const DIR_PAGES = path.join(__dirname, DIR_PROJECT, paths.pages);
+const DIR_HELPERS = [
+    path.join(__dirname, "../helpers"),
+    path.join(__dirname, DIR_PROJECT, paths.helpers)
+]
 
 // Read all files in src/pages folder
 // Pick only *.hbs files
@@ -29,20 +33,25 @@ const pagesPlugins = pages.map(fileName => {
     })
 });
 
-// {{title}} -> {{htmlWebpackPlugin.options.data.title}}
-const QUERY = {
-    search: /\{\{([\w,\.]*)\}\}/,
-    replace: '{{htmlWebpackPlugin.options.data.$1}}',
-    flags: 'g'
-};
-
 module.exports = {
     loaders: [
-        // compile handlebars template
-        {test: /\.hbs$/, loader: 'handlebars-loader'}, 
-        // add path to expressions
-        // {{title}} -> {{htmlWebpackPlugin.options.data.title}}
-        {test: /\.hbs$/, loader: 'string-replace-loader', query: QUERY}, 
+        // Compile handlebars template
+        {
+            test: /\.hbs$/, 
+            loader: 'handlebars-loader', 
+            options: {
+                helperDirs: DIR_HELPERS
+            } 
+        }, 
+        // Move data to be accessible
+        {
+            test: /\.hbs$/, 
+            loader: 'string-replace-loader', 
+            query: {
+                search: /^(.)/,
+                replace: '{{prepareDataForTemplate this htmlWebpackPlugin.options.data}}$1',
+            }
+        }, 
     ],
 
     plugins: pagesPlugins
