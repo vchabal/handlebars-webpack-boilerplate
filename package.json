@@ -4,7 +4,7 @@
   "description": "A Webpack with Handlebars setup",
   "main": "index.js",
   "scripts": {
-    "build": "cross-env REMOVE=bundle.js node scripts/build/build.js"
+    "build": "node scripts/build/build.js"
   },
   "repository": {
     "type": "git",

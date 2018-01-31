@@ -5,8 +5,7 @@ const scss = require('./scss.config');
 
 module.exports = {
     entry: {
-        'bundle.js': ("./" + path.join(paths.src, 'index.js')),
-        'styles.css': ("./" + path.join(paths.scss, 'styles.scss'))
+        'styles.css': ("./" + path.join(paths.pages, 'index.scss'))
     },
 
     output: {
