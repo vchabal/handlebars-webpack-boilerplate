@@ -17,10 +17,14 @@ let compiler = webpack({
     output: webpackConfig.output,
 
     module: {
-        loaders: [].concat(webpackConfig.pages.loaders),
+        loaders: []
+            .concat(webpackConfig.pages.loaders)
+            .concat(webpackConfig.scss.loaders),
     },
 
-    plugins: [].concat(webpackConfig.pages.plugins)
+    plugins: []
+        .concat(webpackConfig.pages.plugins)
+        .concat(webpackConfig.scss.plugins)
 });
 
 compiler.run((err, stats) => {
