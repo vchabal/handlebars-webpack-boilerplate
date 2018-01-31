@@ -11,10 +11,13 @@ let compiler = webpack({
     // The base directory for resolving entry points and loaders from configuration.
     // This makes configuration independent from CWD.
     context: DIR_ROOT,
-
-    entry: webpackConfig.entry,
-
+    
     output: webpackConfig.output,
+
+
+    entry: Object.assign({},
+        webpackConfig.pages.entry,
+        webpackConfig.scss.entry),
 
     module: {
         loaders: []

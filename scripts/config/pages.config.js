@@ -37,6 +37,8 @@ const pagesPlugins = pages.map(fileName => {
 });
 
 module.exports = {
+    entry: {},
+
     loaders: [
         // Compile handlebars template
         {
