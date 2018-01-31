@@ -5,7 +5,7 @@ const extractSass = new ExtractTextPlugin('[name]');
 
 module.exports = {
     entry: {
-        'styles.css': ("./" + path.join(paths.pages, 'index.scss'))
+        'styles.css': ("./" + path.join(paths.pages, 'styles.scss'))
     },
 
     loaders: [
