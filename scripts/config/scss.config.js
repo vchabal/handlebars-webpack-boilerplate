@@ -8,10 +8,17 @@ module.exports = {
         'styles.css': ("./" + path.join(paths.pages, 'index.scss'))
     },
 
-    loaders: [ {
-        test: /\.scss$/,
-        loader: extractSass.extract(['css-loader', 'sass-loader']),
-    }],
+    loaders: [
+        {
+            test: /\.scss$/,
+            loader: extractSass.extract({
+                use: [
+                    {loader: 'css-loader', options: {minimize: true}}, 
+                    {loader: 'sass-loader'}
+                ]
+            }),
+        }
+    ],
 
     plugins: [
         extractSass
