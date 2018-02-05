@@ -1,11 +1,12 @@
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../config/webpack.config');
 const pathsConfig = require('../config/paths.config');
+const watchConfig = require('../config/watch.config');
 const DIR_ROOT = path.resolve(__dirname, "../../");
+const WATCH = (process.argv.indexOf("--watch") >= 2);
 
 let compiler = webpack({
     // The base directory for resolving entry points and loaders from configuration.
@@ -13,7 +14,6 @@ let compiler = webpack({
     context: DIR_ROOT,
     
     output: webpackConfig.output,
-
 
     entry: Object.assign({},
         webpackConfig.pages.entry,
@@ -30,7 +30,12 @@ let compiler = webpack({
         .concat(webpackConfig.scss.plugins)
 });
 
-compiler.run((err, stats) => {
+function time () {
+    var date = new Date();
+    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+}
+
+function callback (err, stats) {
     if (err) {
         throw err;
     }
@@ -41,14 +46,11 @@ compiler.run((err, stats) => {
         process.exit(1);
     }
 
-    if (process.env.REMOVE && process.env.REMOVE.length > 0) {
-        const remove = process.env.REMOVE.split(',');
-        console.log(`  Removing files in ${pathsConfig.dist} directory: ${remove.join(', ')}`);
+    console.log(`  [${time()}]`, WATCH ? 'Watching for changes ...':'Build finished successfully!');
+}; 
 
-        fs.readdirSync(path.join(DIR_ROOT, pathsConfig.dist))
-            .filter(fileName => remove.indexOf(fileName) >= 0)
-            .forEach(fileName => fs.unlinkSync(path.resolve(DIR_ROOT, pathsConfig.dist, fileName)));
-    }
-
-    console.log('  Build finished successfully!');
-});
+if (WATCH) {
+    compiler.watch(watchConfig, callback);
+} else {
+    compiler.run(callback);
+}

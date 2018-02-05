@@ -4,7 +4,8 @@
   "description": "A Webpack with Handlebars setup",
   "main": "index.js",
   "scripts": {
-    "build": "node scripts/build/build.js"
+    "build": "node scripts/build/build.js",
+    "watch": "node scripts/build/build.js --watch"
   },
   "repository": {
     "type": "git",
