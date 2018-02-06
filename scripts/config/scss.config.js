@@ -24,7 +24,8 @@ module.exports = {
     loaders: [
         {
             test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-            loader: 'file-loader?limit=100000'
+            loader: 'file-loader?limit=100000',
+            options: {name: 'fonts/[name].[hash].[ext]'}
         },
         {
             test: /\.scss$/,
