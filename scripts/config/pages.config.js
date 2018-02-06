@@ -7,7 +7,6 @@ const DIR_PROJECT = "../../";
 const REGEX_HBS = /\.hbs$/;
 const DIR_PAGES = path.join(__dirname, DIR_PROJECT, paths.pages);
 const DIR_HELPERS = [
-    path.join(__dirname, "../helpers"),
     path.join(__dirname, DIR_PROJECT, paths.helpers)
 ];
 const DIR_PARTIALS = [
