@@ -5,8 +5,15 @@ const webpack = require('webpack');
 const webpackConfig = require('../config/webpack.config');
 const pathsConfig = require('../config/paths.config');
 const watchConfig = require('../config/watch.config');
+
+const finalhandler = require('finalhandler');
+const serveStatic = require('serve-static');
+const http = require('http');
+
 const DIR_ROOT = path.resolve(__dirname, "../../");
 const WATCH = (process.argv.indexOf("--watch") >= 2);
+const SERVE = (process.argv.indexOf("--serve") >= 2);
+const PORT = SERVE ? parseInt(process.argv[process.argv.indexOf("--serve") + 1]) : -1;
 
 let compiler = webpack({
     // The base directory for resolving entry points and loaders from configuration.
@@ -53,4 +60,14 @@ if (WATCH) {
     compiler.watch(watchConfig, callback);
 } else {
     compiler.run(callback);
+}
+
+if (SERVE) {
+    let distribution = serveStatic('dist', {'index': 'index.html'});
+    let server = http.createServer(function onRequest (req, res) {
+        distribution(req, res, finalhandler(req, res))
+    });
+
+    server.listen(PORT);
+    console.log(`  [${time()}] HTTP server listening on localhost:${PORT}`);
 }
