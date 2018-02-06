@@ -39,16 +39,13 @@ let compiler = webpack({
 
 /** 
  * Simple coloring of console output
- * @example console.log(r("Hello World!"));
- * @example console.log(`  Hello ${y("World")}!`);
+ * @example console.log(color.r("Hello World!"));
  * @see https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color#answer-46705010
  */
-const { r, g, b, w, c, m, y, k } = [
-    ['r', 1], ['g', 2], ['b', 4], ['w', 7],
-    ['c', 6], ['m', 5], ['y', 3], ['k', 0],
-  ].reduce((cols, col) => ({
-    ...cols,  [col[0]]: f => `\x1b[3${col[1]}m${f}\x1b[0m`
-  }), {});
+const color = 'r1 g2 b4 w7 c6 m5 y3 k0'.split(' ').reduce((o, c) => { 
+    o[c[0]] = (f=>`\x1b[3${ c[1] }m${ f }\x1b[0m`);
+    return o;
+}, {});
 
 function time () {
     var date = new Date();
@@ -65,10 +62,10 @@ function callback (err, stats) {
         console.log(stats.toString());
         process.exit(1);
     } else {
-        console.log(g(stats.toString().split(/\n/).filter(str=>/\[emitted\]/.test(str)).join('\n')));
+        console.log(color.g(stats.toString().split(/\n/).filter(str=>/\[emitted\]/.test(str)).join('\n')));
     }
 
-    console.log(`  [${y(time())}]`, WATCH ? 'Watching for changes ...':'Build finished successfully!');
+    console.log(`  [${color.y(time())}]`, WATCH ? 'Watching for changes ...':'Build finished successfully!');
 }; 
 
 if (WATCH) {
@@ -84,5 +81,5 @@ if (SERVE) {
     });
 
     server.listen(PORT);
-    console.log(`  [${y(time())}] HTTP server listening on localhost:${PORT}`);
+    console.log(`  [${color.y(time())}] HTTP server listening on localhost:${PORT}`);
 }
