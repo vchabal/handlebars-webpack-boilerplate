@@ -1,0 +1,32 @@
+body {
+    background-image: url('images/bg.png');
+    background-position: center center;
+}
+
+.margin-0-auto {
+    margin: 0 auto;
+}
+
+.width-small {
+    width: 30em;
+}
+
+.text-center {
+    text-align: center;
+}
+
+h1 {
+    padding: .5em 0;
+    font-size: 2.5em;
+}
+
+img {
+    display: inline-block;
+    width: 5em;
+    height: 5em;
+}
+
+footer {
+    font-size: 1em;
+    color: gray;
+}
