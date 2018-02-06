@@ -1,0 +1,20 @@
+@mixin add-font($folder, $variant, $type, $weight, $style) {
+    $file: '#{to-lower-case($variant)}-#{to-lower-case($type)}';
+
+
+    @font-face {
+        font-family: '#{$variant}';
+        src: local('#{$variant} #{$type}'),
+             local('#{$variant}-#{$type}'),
+             url('#{$folder}/#{$file}.ttf') format('truetype');
+        font-weight: $weight;
+        font-style: $style;
+    }
+}
+
+@include add-font('roboto', 'Roboto', 'Thin', 100, normal);
+@include add-font('roboto', 'Roboto', 'Light', 300, normal);
+@include add-font('roboto', 'Roboto', 'Regular', 400, normal);
+@include add-font('roboto', 'Roboto', 'Medium', 500, normal);
+@include add-font('roboto', 'Roboto', 'Bold', 700, normal);
+@include add-font('roboto', 'Roboto', 'Black', 900, normal);

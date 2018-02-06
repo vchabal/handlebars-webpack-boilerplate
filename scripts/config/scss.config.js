@@ -23,6 +23,10 @@ module.exports = {
 
     loaders: [
         {
+            test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+            loader: 'file-loader?limit=100000'
+        },
+        {
             test: /\.scss$/,
             loader: extractSass.extract({
                 use: [

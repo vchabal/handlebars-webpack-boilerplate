@@ -1,4 +1,5 @@
 @import '../scss/reset.scss';
+@import '../scss/font.scss';
 
 html, body {
     margin: 0; 
@@ -7,4 +8,7 @@ html, body {
 
 html {
     height: 100%;
+    font-family: 'Roboto', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: normal;
 }
+
