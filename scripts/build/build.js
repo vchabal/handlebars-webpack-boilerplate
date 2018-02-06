@@ -23,16 +23,19 @@ let compiler = webpack({
     output: webpackConfig.output,
 
     entry: Object.assign({},
+        webpackConfig.resources.entry,
         webpackConfig.pages.entry,
         webpackConfig.scss.entry),
 
     module: {
         loaders: []
+            .concat(webpackConfig.resources.loaders)
             .concat(webpackConfig.pages.loaders)
             .concat(webpackConfig.scss.loaders),
     },
 
     plugins: []
+        .concat(webpackConfig.resources.plugins)
         .concat(webpackConfig.pages.plugins)
         .concat(webpackConfig.scss.plugins)
 });
