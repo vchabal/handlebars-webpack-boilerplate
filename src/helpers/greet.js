@@ -1,3 +1,3 @@
 module.exports = function (name) {
-    return `By ${name}!`;
+    return `by ${name}`;
 }

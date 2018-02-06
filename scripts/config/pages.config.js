@@ -22,17 +22,13 @@ const pages = fs.readdirSync(DIR_PAGES).filter(fileName => REGEX_HBS.test(fileNa
 const pagesPlugins = pages.map(fileName => {
     const tpl = path.join(DIR_PAGES, fileName); // src/pages/index.hbs
     const html = fileName.replace(REGEX_HBS, '.html'); // index.hbs -> index.html
-    const js = fileName.replace(REGEX_HBS, '.js'); // index.hbs -> index.js
-    const dataPath = path.relative(__dirname, path.join(DIR_PAGES, js));
 
     return new HtmlWebpackPlugin({
         filename: html,
         template: tpl,
         inject: false,
         xhtml: true,
-        minify: htmlMinify,
-        // custom data for template
-        data: require(dataPath)
+        minify: htmlMinify
     })
 });
 
@@ -48,16 +44,7 @@ module.exports = {
                 helperDirs: DIR_HELPERS,
                 partialDirs: DIR_PARTIALS
             } 
-        }, 
-        // Move data to be accessible
-        {
-            test: /\.hbs$/, 
-            loader: 'string-replace-loader', 
-            query: {
-                search: /^(.)/,
-                replace: '{{prepareDataForTemplate this htmlWebpackPlugin.options.data}}$1',
-            }
-        }, 
+        }
     ],
 
     plugins: pagesPlugins
