@@ -22,6 +22,8 @@ let compiler = webpack({
     
     output: webpackConfig.output,
 
+    devtool: WATCH ? "source-map" : void(0),
+
     entry: Object.assign({},
         webpackConfig.resources.entry,
         webpackConfig.pages.entry,
