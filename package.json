@@ -23,17 +23,17 @@
   },
   "homepage": "https://github.com/vchabal/handlebars-webpack-boilerplate#readme",
   "devDependencies": {
+    "browser-sync": "^2.23.6",
+    "browser-sync-webpack-plugin": "^2.0.1",
     "cross-env": "^5.1.3",
     "css-loader": "^0.28.9",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
-    "finalhandler": "^1.1.0",
     "handlebars": "^4.0.11",
     "handlebars-loader": "^1.6.0",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
-    "serve-static": "^1.13.1",
     "string-replace-loader": "^1.3.0",
     "webpack": "^3.10.0"
   }
