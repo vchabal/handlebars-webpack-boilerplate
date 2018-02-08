@@ -1,5 +1,6 @@
 'use strict';
 
+const fse = require('fs-extra');
 const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../config/webpack.config');
@@ -12,6 +13,12 @@ const WATCH = (process.argv.indexOf("--watch") >= 2);
 const SERVE = (process.argv.indexOf("--serve") >= 2);
 const PORT = SERVE ? parseInt(process.argv[process.argv.indexOf("--serve") + 1]) : -1;
 const SYNC = SERVE ? [new BrowserSyncPlugin({ port: PORT, server: { baseDir: path.join(DIR_ROOT, 'dist') } })] : [];
+
+
+// Deletes directory contents if the directory is not empt
+// If the directory does not exist, it is created
+// The directory itself is not deleted
+fse.emptyDirSync(webpackConfig.output.path);
 
 let compiler = webpack({
     // The base directory for resolving entry points and loaders from configuration.
