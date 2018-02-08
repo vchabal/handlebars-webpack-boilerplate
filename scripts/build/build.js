@@ -52,7 +52,9 @@ const color = 'r1 g2 b4 w7 c6 m5 y3 k0'.split(' ').reduce((o, c) => {
 
 function time () {
     var date = new Date();
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+    date = [date.getHours(), date.getMinutes(), date.getSeconds()];
+    date = date.map(d=>d.toString().replace(/^(\d)$/, '0$1'));
+    return date.join(':');
 }
 
 function callback (err, stats) {
