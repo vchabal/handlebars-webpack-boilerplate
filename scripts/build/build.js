@@ -77,7 +77,7 @@ function callback (err, stats) {
         console.log(color.g(stats.toString().split(/\n/).filter(str=>/\[emitted\]/.test(str)).join('\n')));
     }
 
-    console.log(`  [${color.y(time())}]`, WATCH ? 'Watching for changes ...':'Build finished successfully!');
+    console.log(`   [${color.y(time())}]`, WATCH ? 'Watching for changes ...':'Build finished successfully!');
 }; 
 
 if (WATCH) {
