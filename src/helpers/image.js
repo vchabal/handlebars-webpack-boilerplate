@@ -1,3 +1,3 @@
 module.exports = function (image) {
-    return require(`../pages/images/${ image }`);
+    return require(`../images/${ image }`);
 }

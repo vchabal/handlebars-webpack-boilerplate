@@ -12,9 +12,9 @@
     }
 }
 
-@include add-font('roboto', 'Roboto', 'Thin', 100, normal);
-@include add-font('roboto', 'Roboto', 'Light', 300, normal);
-@include add-font('roboto', 'Roboto', 'Regular', 400, normal);
-@include add-font('roboto', 'Roboto', 'Medium', 500, normal);
-@include add-font('roboto', 'Roboto', 'Bold', 700, normal);
-@include add-font('roboto', 'Roboto', 'Black', 900, normal);
+@include add-font('../fonts', 'Roboto', 'Thin', 100, normal);
+@include add-font('../fonts', 'Roboto', 'Light', 300, normal);
+@include add-font('../fonts', 'Roboto', 'Regular', 400, normal);
+@include add-font('../fonts', 'Roboto', 'Medium', 500, normal);
+@include add-font('../fonts', 'Roboto', 'Bold', 700, normal);
+@include add-font('../fonts', 'Roboto', 'Black', 900, normal);
