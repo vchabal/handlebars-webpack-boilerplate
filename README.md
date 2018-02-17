@@ -35,8 +35,7 @@ loaders: [
     options: {name: '[name].[ext]'}
   }
 ]
-
 ```
 
 ## Why isn't Sass compiled during `*.hbs` compilation?
-There is still some issues regearding ["extract-text-webpack-plugin" loader is used without the corresponding plugin](https://github.com/jantimon/html-webpack-plugin/issues/579), and yet I had no time to find some workaround. No multiple Webpack runs are planed here. 
+There is still some issues with ["extract-text-webpack-plugin" loader is used without the corresponding plugin](https://github.com/jantimon/html-webpack-plugin/issues/579). I have no plans and time to find some workaround. No multiple Webpack runs are planed. 
